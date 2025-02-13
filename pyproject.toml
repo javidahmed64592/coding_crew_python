@@ -130,3 +130,12 @@ quote-style = "double"
 indent-style = "space"
 skip-magic-trailing-comma = false
 line-ending = "auto"
+
+[tool.mypy-crewai]
+ignore_missing_imports = true
+
+[tool.mypy-crewai.project]
+ignore_missing_imports = true
+
+[tool.mypy-crewai.tools]
+ignore_missing_imports = true
