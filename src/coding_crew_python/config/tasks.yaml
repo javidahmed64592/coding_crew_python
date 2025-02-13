@@ -19,16 +19,9 @@ unit_test_analysis_task:
     A report detailing the test results and recommendations for improving code coverage.
   agent: code_tester
 
-unit_test_writing_task:
-  description: >
-    Write unit tests to improve coverage and overall code robustness.
-  expected_output: >
-    A set of new unit tests that improve code coverage and robustness.
-  agent: code_tester
-
 documentation_sync_task:
   description: >
-    Analyze the documentation and the codebase to ensure they are kept in sync using Sphinx.
+    Analyze the documentation and the codebase to ensure they are kept in sync using markdown.
   expected_output: >
     A report detailing any discrepancies between the documentation and the codebase, and the steps taken to resolve them.
   agent: code_documenter
