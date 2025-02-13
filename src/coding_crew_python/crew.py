@@ -13,8 +13,11 @@ class CodingCrewPython:
     # Learn more about YAML configuration files here:
     # Agents: https://docs.crewai.com/concepts/agents#yaml-configuration-recommended
     # Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
-    agents_config: dict[str, str] = "config/agents.yaml"
-    tasks_config: dict[str, str] = "config/tasks.yaml"
+    agents_config = "config/agents.yaml"
+    tasks_config = "config/tasks.yaml"
+
+    agents: list[Agent]
+    tasks: list[Task]
 
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
