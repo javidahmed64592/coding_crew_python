@@ -67,13 +67,7 @@ class CodingCrewPython:
                 self.code_documenter(),
                 self.researcher(),
             ],
-            tasks=[
-                self.code_quality_task(),
-                self.type_checking_task(),
-                self.unit_test_analysis_task(),
-                self.unit_test_writing_task(),
-                self.documentation_sync_task(),
-            ],
+            tasks=self.tasks,
             process=Process.sequential,
             verbose=True,
         )
