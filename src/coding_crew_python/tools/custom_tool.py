@@ -15,6 +15,6 @@ class MyCustomTool(BaseTool):
     )
     args_schema: type[BaseModel] = MyCustomToolInput
 
-    def _run(self, argument: str) -> str:  # noqa: ANN101
+    def _run(self, argument: str) -> str:
         # Implementation goes here
         return "this is an example of a tool output, ignore it and move along."
