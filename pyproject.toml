@@ -1,0 +1,132 @@
+[project]
+name = "coding_crew_python"
+version = "0.1.0"
+description = "coding_crew_python using crewAI"
+authors = [{ name = "Javid Ahmed", email = "javidahmed@icloud.com" }]
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "crewai[tools]>=0.100.1,<1.0.0",
+    "google-generativeai",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "mypy",
+    "pytest",
+    "pytest-cov",
+]
+
+[project.scripts]
+coding_crew_python = "coding_crew_python.main:run"
+run_crew = "coding_crew_python.main:run"
+train = "coding_crew_python.main:train"
+replay = "coding_crew_python.main:replay"
+test = "coding_crew_python.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
+
+[project.urls]
+repository = "https://github.com/javidahmed64592/rpi-ai"
+
+[tool.pytest.ini_options]
+addopts = [
+    "-vv",
+    "--cov",
+    "--cov-report",
+    "term-missing",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+indent-width = 4
+
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+[tool.ruff.lint]
+select = [
+    "A",
+    "ANN",
+    "ASYNC",
+    "B",
+    "C4",
+    "E",
+    "EM",
+    "F",
+    "FBT",
+    "G",
+    "I",
+    "ISC",
+    "LOG",
+    "N",
+    "NPY",
+    "PD",
+    "PERF",
+    "PL",
+    "PT",
+    "RET",
+    "RUF",
+    "S",
+    "TRY",
+    "UP",
+    "W",
+    "YTT",
+]
+ignore = [
+  "B904",
+  "E501",
+  "E741",
+  "G004",
+  "ISC001",
+  "N999",
+  "PLR0913",
+  "S101",
+  "S104",
+  "S105",
+  "TRY002",
+]
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
