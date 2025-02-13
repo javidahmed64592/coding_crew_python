@@ -1,57 +1,79 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 
-# If you want to run a snippet of code before or after the crew starts,
-# you can use the @before_kickoff and @after_kickoff decorators
-# https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
-
 
 @CrewBase
 class CodingCrewPython:
     """CodingCrewPython crew"""
 
-    # Learn more about YAML configuration files here:
-    # Agents: https://docs.crewai.com/concepts/agents#yaml-configuration-recommended
-    # Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
     agents_config: dict[str, str]
     tasks_config: dict[str, str]
 
-    agents: list[Agent]
     tasks: list[Task]
 
-    # If you would like to add tools to your agents, you can learn more about it here:
-    # https://docs.crewai.com/concepts/agents#agent-tools
+    @agent
+    def manager(self) -> Agent:
+        return Agent(config=self.agents_config["manager"], verbose=True, allow_delegation=True)
+
+    @agent
+    def code_quality_specialist(self) -> Agent:
+        return Agent(config=self.agents_config["code_quality_specialist"], verbose=True)
+
+    @agent
+    def code_type_checker(self) -> Agent:
+        return Agent(config=self.agents_config["code_type_checker"], verbose=True)
+
+    @agent
+    def code_tester(self) -> Agent:
+        return Agent(config=self.agents_config["code_tester"], verbose=True)
+
+    @agent
+    def code_documenter(self) -> Agent:
+        return Agent(config=self.agents_config["code_documenter"], verbose=True)
+
     @agent
     def researcher(self) -> Agent:
         return Agent(config=self.agents_config["researcher"], verbose=True)
 
-    @agent
-    def reporting_analyst(self) -> Agent:
-        return Agent(config=self.agents_config["reporting_analyst"], verbose=True)
-
-    # To learn more about structured task outputs,
-    # task dependencies, and task callbacks, check out the documentation:
-    # https://docs.crewai.com/concepts/tasks#overview-of-a-task
     @task
-    def research_task(self) -> Task:
-        return Task(
-            config=self.tasks_config["research_task"],
-        )
+    def code_quality_task(self) -> Task:
+        return Task(config=self.tasks_config["code_quality_task"], output_file="code_quality_report.md")
 
     @task
-    def reporting_task(self) -> Task:
-        return Task(config=self.tasks_config["reporting_task"], output_file="report.md")
+    def type_checking_task(self) -> Task:
+        return Task(config=self.tasks_config["type_checking_task"], output_file="type_checking_report.md")
+
+    @task
+    def unit_test_analysis_task(self) -> Task:
+        return Task(config=self.tasks_config["unit_test_analysis_task"], output_file="unit_test_analysis_report.md")
+
+    @task
+    def unit_test_writing_task(self) -> Task:
+        return Task(config=self.tasks_config["unit_test_writing_task"], output_file="unit_tests.py")
+
+    @task
+    def documentation_sync_task(self) -> Task:
+        return Task(config=self.tasks_config["documentation_sync_task"], output_file="documentation_sync_report.md")
 
     @crew
     def crew(self) -> Crew:
         """Creates the CodingCrewPython crew"""
-        # To learn how to add knowledge sources to your crew, check out the documentation:
-        # https://docs.crewai.com/concepts/knowledge#what-is-knowledge
-
         return Crew(
-            agents=self.agents,  # Automatically created by the @agent decorator
-            tasks=self.tasks,  # Automatically created by the @task decorator
+            manager_agent=self.manager(),
+            agents=[
+                self.code_quality_specialist(),
+                self.code_type_checker(),
+                self.code_tester(),
+                self.code_documenter(),
+                self.researcher(),
+            ],
+            tasks=[
+                self.code_quality_task(),
+                self.type_checking_task(),
+                self.unit_test_analysis_task(),
+                self.unit_test_writing_task(),
+                self.documentation_sync_task(),
+            ],
             process=Process.sequential,
             verbose=True,
-            # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
         )
