@@ -19,28 +19,28 @@ class CodingCrewPython:
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
     @agent
-    def researcher(self) -> Agent:  # noqa: ANN101
+    def researcher(self) -> Agent:
         return Agent(config=self.agents_config["researcher"], verbose=True)
 
     @agent
-    def reporting_analyst(self) -> Agent:  # noqa: ANN101
+    def reporting_analyst(self) -> Agent:
         return Agent(config=self.agents_config["reporting_analyst"], verbose=True)
 
     # To learn more about structured task outputs,
     # task dependencies, and task callbacks, check out the documentation:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
     @task
-    def research_task(self) -> Task:  # noqa: ANN101
+    def research_task(self) -> Task:
         return Task(
             config=self.tasks_config["research_task"],
         )
 
     @task
-    def reporting_task(self) -> Task:  # noqa: ANN101
+    def reporting_task(self) -> Task:
         return Task(config=self.tasks_config["reporting_task"], output_file="report.md")
 
     @crew
-    def crew(self) -> Crew:  # noqa: ANN101
+    def crew(self) -> Crew:
         """Creates the CodingCrewPython crew"""
         # To learn how to add knowledge sources to your crew, check out the documentation:
         # https://docs.crewai.com/concepts/knowledge#what-is-knowledge
