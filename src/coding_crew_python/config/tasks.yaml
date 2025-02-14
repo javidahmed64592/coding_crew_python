@@ -2,8 +2,7 @@ code_quality_task:
   description: >
     Use the Ruff tool to check for and fix any identified issues in the codebase.
   expected_output: >
-    A report detailing the issues found and the fixes applied.
-    Formatted as markdown without '```'
+    A report detailing the issues found and the fixes applied, formatted as markdown without '```'.
   agent: code_quality_specialist
 
 type_checking_task:
@@ -18,14 +17,12 @@ unit_test_analysis_task:
   description: >
     Run unit tests using pytest, analyze the results, and identify areas where code coverage can be improved.
   expected_output: >
-    A report detailing the test results and recommendations for improving code coverage.
-    Formatted as markdown without '```'
+    A report detailing the test results and recommendations for improving code coverage, formatted as markdown without '```'.
   agent: code_tester
 
 documentation_sync_task:
   description: >
-    Analyze the documentation and the codebase to ensure they are kept in sync using markdown.
+    Analyze the codebase to ensure all documentation is kept in sync using markdown.
   expected_output: >
-    A report detailing any discrepancies between the documentation and the codebase, and the steps taken to resolve them.
-    Formatted as markdown without '```'
+    A report detailing any discrepancies between the documentation and the codebase, and the steps taken to resolve them, formatted as markdown without '```'.
   agent: code_documenter

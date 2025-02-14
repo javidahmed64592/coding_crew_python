@@ -27,7 +27,6 @@ class CodingCrewPython:
             config=self.agents_config["manager"],
             verbose=True,
             allow_delegation=True,
-            tools=[list_files_tool, read_file_tool],
         )
 
     @agent
@@ -35,7 +34,7 @@ class CodingCrewPython:
         return Agent(
             config=self.agents_config["code_quality_specialist"],
             verbose=True,
-            tools=[read_file_tool, run_ruff_tool],
+            tools=[list_files_tool, read_file_tool, run_ruff_tool],
         )
 
     @agent
@@ -43,7 +42,7 @@ class CodingCrewPython:
         return Agent(
             config=self.agents_config["code_type_checker"],
             verbose=True,
-            tools=[read_file_tool, run_mypy_tool],
+            tools=[list_files_tool, read_file_tool, run_mypy_tool],
         )
 
     @agent
@@ -51,7 +50,7 @@ class CodingCrewPython:
         return Agent(
             config=self.agents_config["code_tester"],
             verbose=True,
-            tools=[read_file_tool, run_pytest_tool, analyze_coverage_tool],
+            tools=[list_files_tool, read_file_tool, run_pytest_tool, analyze_coverage_tool],
         )
 
     @agent
@@ -59,7 +58,7 @@ class CodingCrewPython:
         return Agent(
             config=self.agents_config["code_documenter"],
             verbose=True,
-            tools=[read_file_tool],
+            tools=[list_files_tool, read_file_tool],
         )
 
     @task
