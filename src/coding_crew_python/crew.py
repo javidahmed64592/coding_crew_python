@@ -66,28 +66,28 @@ class CodingCrewPython:
     def code_quality_task(self) -> Task:
         return Task(
             config=self.tasks_config["code_quality_task"],
-            output_file="code_quality_report.md",
+            output_file="reports/code_quality_report.md",
         )
 
     @task
     def type_checking_task(self) -> Task:
         return Task(
             config=self.tasks_config["type_checking_task"],
-            output_file="type_checking_report.md",
+            output_file="reports/type_checking_report.md",
         )
 
     @task
     def unit_test_analysis_task(self) -> Task:
         return Task(
             config=self.tasks_config["unit_test_analysis_task"],
-            output_file="unit_test_analysis_report.md",
+            output_file="reports/unit_test_analysis_report.md",
         )
 
     @task
     def documentation_sync_task(self) -> Task:
         return Task(
             config=self.tasks_config["documentation_sync_task"],
-            output_file="documentation_sync_report.md",
+            output_file="reports/documentation_sync_report.md",
         )
 
     @crew
