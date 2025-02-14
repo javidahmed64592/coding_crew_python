@@ -3,6 +3,7 @@ code_quality_task:
     Use the Ruff tool to check for and fix any identified issues in the codebase.
   expected_output: >
     A report detailing the issues found and the fixes applied.
+    Formatted as markdown without '```'
   agent: code_quality_specialist
 
 type_checking_task:
@@ -10,6 +11,7 @@ type_checking_task:
     Use the MyPy tool to find and fix any type hint issues in the codebase.
   expected_output: >
     A report detailing the type hint issues found and the fixes applied.
+    Formatted as markdown without '```'
   agent: code_type_checker
 
 unit_test_analysis_task:
@@ -17,6 +19,7 @@ unit_test_analysis_task:
     Run unit tests using pytest, analyze the results, and identify areas where code coverage can be improved.
   expected_output: >
     A report detailing the test results and recommendations for improving code coverage.
+    Formatted as markdown without '```'
   agent: code_tester
 
 documentation_sync_task:
@@ -24,4 +27,5 @@ documentation_sync_task:
     Analyze the documentation and the codebase to ensure they are kept in sync using markdown.
   expected_output: >
     A report detailing any discrepancies between the documentation and the codebase, and the steps taken to resolve them.
+    Formatted as markdown without '```'
   agent: code_documenter
