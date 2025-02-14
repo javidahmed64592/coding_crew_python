@@ -4,9 +4,9 @@ from pathlib import Path
 from crewai.tools import BaseTool
 from pydantic import BaseModel, Field
 
-from src.coding_crew_python.main import inputs
+from src.coding_crew_python.config.config import inputs
 
-input_path = Path(inputs["codebase_path"])
+codebase_path = Path(inputs["codebase_path"])
 
 
 class CodebaseFileInput(BaseModel):
@@ -27,7 +27,7 @@ class ListFilesTool(BaseTool):
     description: str = "List all files in the codebase directory."
 
     def _run(self) -> list[str]:
-        return [str(file) for file in input_path.rglob("*") if file.is_file()]
+        return [str(file) for file in codebase_path.rglob("*") if file.is_file()]
 
 
 class ReadFileTool(BaseTool):
@@ -36,7 +36,7 @@ class ReadFileTool(BaseTool):
     args_schema: type[BaseModel] = CodebaseFileInput
 
     def _run(self, file_path: str) -> str:
-        path = input_path / file_path
+        path = codebase_path / file_path
         return path.read_text()
 
 
@@ -46,7 +46,7 @@ class WriteFileTool(BaseTool):
     args_schema: type[BaseModel] = CodebaseFileInput
 
     def _run(self, file_path: str, content: str) -> str:
-        path = input_path / file_path
+        path = codebase_path / file_path
         path.write_text(content)
         return f"File {file_path} written successfully."
 
@@ -60,7 +60,7 @@ class RunRuffTool(BaseTool):
             msg = "Invalid command for Ruff tool. Use 'check' or 'format'."
             raise ValueError(msg)
 
-        cmd = ["ruff", command, str(input_path)]
+        cmd = ["ruff", command, str(codebase_path)]
         if command == "check" and fix:
             cmd.append("--fix")
 
@@ -73,7 +73,7 @@ class RunMypyTool(BaseTool):
     description: str = "Run the MyPy tool to check for type hint issues."
 
     def _run(self) -> str:
-        result = subprocess.run(["mypy", str(input_path)], capture_output=True, text=True, check=False)  # noqa
+        result = subprocess.run(["mypy", str(codebase_path)], capture_output=True, text=True, check=False)  # noqa
         return result.stdout
 
 
@@ -82,7 +82,7 @@ class RunPytestTool(BaseTool):
     description: str = "Run unit tests using pytest."
 
     def _run(self) -> str:
-        result = subprocess.run(["pytest", str(input_path)], capture_output=True, text=True, check=False)  # noqa
+        result = subprocess.run(["pytest", str(codebase_path)], capture_output=True, text=True, check=False)  # noqa
         return result.stdout
 
 
@@ -91,5 +91,5 @@ class AnalyzeCoverageTool(BaseTool):
     description: str = "Analyze code coverage using pytest-cov."
 
     def _run(self) -> str:
-        result = subprocess.run(["pytest", "--cov", str(input_path)], capture_output=True, text=True, check=False)  # noqa
+        result = subprocess.run(["pytest", "--cov", str(codebase_path)], capture_output=True, text=True, check=False)  # noqa
         return result.stdout
