@@ -91,5 +91,5 @@ class AnalyzeCoverageTool(BaseTool):
     description: str = "Analyze code coverage using pytest-cov."
 
     def _run(self) -> str:
-        result = subprocess.run(["pytest", "--cov", str(codebase_path)], capture_output=True, text=True, check=False)  # noqa
+        result = subprocess.run(["pytest", str(codebase_path), "--cov"], capture_output=True, text=True, check=False)  # noqa
         return result.stdout
